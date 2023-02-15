@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <RootNamespace>LearnositySDKUnitTests</RootNamespace>
+
+    <AssemblyName>LearnositySDKUnitTests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LearnositySDK\LearnositySDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="LearnositySDKUnitTests.cs" />
+  </ItemGroup>
+</Project>
