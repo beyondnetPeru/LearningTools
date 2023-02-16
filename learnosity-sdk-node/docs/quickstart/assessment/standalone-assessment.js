@@ -7,11 +7,18 @@
 // Include server side Learnosity SDK, and set up variables related to user access.
 const Learnosity = require('../../../index'); // Include Learnosity SDK constructor
 const config = require('../config'); // Load consumer key & secret from config.js
-const uuid = require('uuid');        // Load the UUID library
-const express = require('express');  // Load 'Express.js", a web server
-const app = express();               // Instantiate the web server
+const uuid = require('uuid'); // Load the UUID library
+const express = require('express'); // Load 'Express.js", a web server
+const app = express(); // Instantiate the web server
 
-app.set('view engine', 'ejs');       // Set EJS as our templating language
+const requestLogger = (request, response, next) => {
+    console.log(`${response}`);
+    next();
+};
+
+app.set('view engine', 'ejs'); // Set EJS as our templating language
+
+app.use(requestLogger);
 
 // - - - - - - Learnosity server-side configuration - - - - - - //
 
@@ -24,13 +31,13 @@ app.get('/', function (req, res) {
     const learnositySdk = new Learnosity(); // Instantiate the SDK
     // Items API configuration parameters.
     const request = learnositySdk.init(
-        'items',                              // Select Items API
+        'items', // Select Items API
         // Consumer key and consumer secret are the public & private security keys required to access Learnosity APIs and data. These keys grant access to Learnosity's public demos account. Learnosity will provide keys for your own account.
         {
             consumer_key: config.consumerKey, // Load key from config.js
-            domain: domain                   // Set the domain (from line 20)
+            domain: domain // Set the domain (from line 20)
         },
-        config.consumerSecret,                // Load secret from config.js
+        config.consumerSecret, // Load secret from config.js
         {
             // Unique student identifier, a UUID generated on line 18.
             user_id: user_id,
@@ -55,7 +62,8 @@ app.get('/', function (req, res) {
     res.render('standalone-assessment', { request }); // Render the page and request.
 });
 
-app.listen(3000, function () { // Run the web application. Set the port here (3000).
+app.listen(3000, function () {
+    // Run the web application. Set the port here (3000).
     console.log('Example app listening on port 3000!');
 });
 

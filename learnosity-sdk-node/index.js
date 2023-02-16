@@ -57,7 +57,11 @@ function addTelemetryData(requestObject) {
  * @param securityPacket
  * @param secret
  */
-function insertSecurityInformationToAssessObject(requestPacket, securityPacket, secret) {
+function insertSecurityInformationToAssessObject(
+    requestPacket,
+    securityPacket,
+    secret
+) {
     if (requestPacket.questionsApiActivity) {
         const questionsApi = requestPacket.questionsApiActivity;
         let domain = 'assess.learnosity.com';
@@ -68,7 +72,8 @@ function insertSecurityInformationToAssessObject(requestPacket, securityPacket, 
             domain = questionsApi.domain;
         }
 
-        requestPacket.questionsApiActivity.consumer_key = securityPacket.consumer_key;
+        requestPacket.questionsApiActivity.consumer_key =
+            securityPacket.consumer_key;
         requestPacket.questionsApiActivity.timestamp = securityPacket.timestamp;
         requestPacket.questionsApiActivity.user_id = securityPacket.user_id;
         requestPacket.questionsApiActivity.signature = hashSignatureArray([
@@ -194,7 +199,11 @@ LearnositySDK.prototype.init = function (
     }
 
     if (service === 'assess') {
-        insertSecurityInformationToAssessObject(requestObject, securityPacket, secret);
+        insertSecurityInformationToAssessObject(
+            requestObject,
+            securityPacket,
+            secret
+        );
     }
 
     // Automatically populate the user_id of the security packet.
@@ -221,9 +230,9 @@ LearnositySDK.prototype.init = function (
 
     if (service === 'data') {
         output = {
-            'security': JSON.stringify(securityPacket),
-            'request': requestString,
-            'action': action
+            security: JSON.stringify(securityPacket),
+            request: requestString,
+            action: action
         };
     } else if (service === 'questions') {
         // Questions API Requests don't need `domain`
@@ -234,8 +243,8 @@ LearnositySDK.prototype.init = function (
         output = requestObject;
     } else {
         output = {
-            'security': securityPacket,
-            'request': _.isString(requestPacket) ? requestString : requestObject
+            security: securityPacket,
+            request: _.isString(requestPacket) ? requestString : requestObject
         };
     }
 
