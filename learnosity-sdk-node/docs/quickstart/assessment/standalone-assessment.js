@@ -18,6 +18,14 @@ const requestLogger = (request, response, next) => {
 
 app.set('view engine', 'ejs'); // Set EJS as our templating language
 
+// app.use(function (req, res) {
+//     const send = res.send;
+//     res.send = (body) => {
+//         console.log(`Body: ${body}`);
+//         send.call(this, body);
+//     };
+// });
+
 app.use(requestLogger);
 
 // - - - - - - Learnosity server-side configuration - - - - - - //
